@@ -13,4 +13,4 @@ RUN R -e "library(devtools); devtools::install_github('ncsu-landscape-dynamics/r
 COPY . /usr/local/src/myscripts
 WORKDIR /usr/local/src/myscripts
 
-CMD ["Rscript", "run_pops_t10x10.R"]
+CMD ["Rscript", "run_r_pops_t10x10.R"]
