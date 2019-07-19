@@ -1,11 +1,5 @@
 #!/bin/bash
 
-url="https://github.com/ncsu-landscape-dynamics/r.pops.spread"
-
-# we expect this to be already done
-# git clone --recursive $url
-# g.extension r.pops.spread url=r.pops.spread
-
 r.import "data/t10x10/host.tif" output=host --q
 r.import "data/t10x10/all_plants.tif" output=all_plants --q
 r.import "data/t10x10/initial_infections_single.tif" output=initial_infections_single --q
