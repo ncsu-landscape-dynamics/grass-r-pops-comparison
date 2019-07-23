@@ -6,7 +6,7 @@ source("pops_multiple.R")
 runs <- 100
 
 data <- pops_multiple(
-    infected_file="data/t100x100/initial_infections_single.tif",
+    infected_file="data/t100x100/initial_infections_multi.tif",
     host_file="data/t100x100/host.tif",
     total_plants_file="data/t100x100/all_plants.tif",
     temperature_file="",
@@ -22,14 +22,14 @@ data <- pops_multiple(
     end_time=2020,
     dispersal_kern="cauchy",
     percent_short_distance_dispersal=1.0,
-    short_distance_scale=20.57,
+    short_distance_scale=20,
     long_distance_scale=0.0,
     lethal_temperature=-13,
     lethal_temperature_month=1,
-    wind_dir="NONE",
-    kappa=0,
+    wind_dir="SE",
+    kappa=3,
     random_seed=42,
-    reproductive_rate=4.4,
+    reproductive_rate=10,
     treatments_file="",
     treatment_years=c(0),
     management=FALSE,
