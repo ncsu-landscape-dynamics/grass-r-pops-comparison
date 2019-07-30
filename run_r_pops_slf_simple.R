@@ -34,6 +34,7 @@ mortality_on <- FALSE
 mortality_rate <- 0
 mortality_time_lag <- 0
 treatment_method <- "ratio"
+treatment_month <- 12
 
 data <- PoPS::pops(infected_file, host_file, total_plants_file, reproductive_rate,
                    use_lethal_temperature, temp, precip, management, mortality_on,
@@ -45,4 +46,4 @@ data <- PoPS::pops(infected_file, host_file, total_plants_file, reproductive_rat
                    short_distance_scale, long_distance_scale,
                    lethal_temperature, lethal_temperature_month,
                    mortality_rate, mortality_time_lag, treatment_method,
-                   wind_dir, kappa, random_seed)
+                   treatment_month, wind_dir, kappa, random_seed)
