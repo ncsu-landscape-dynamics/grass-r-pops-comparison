@@ -3,7 +3,7 @@ library(raster)
 
 source("pops_multiple.R")
 
-runs <- 1
+runs <- 100
 
 data <- pops_multiple(
     infected_file="data/slf/initial_infections_2018_single_count_pm_prop.tif",
@@ -36,16 +36,18 @@ data <- pops_multiple(
     mortality_on=FALSE,
     mortality_rate=0,
     mortality_time_lag=0,
+    treatment_method="ratio",
+    treatment_month=12,
     runs=runs
 )
 
 # last infected matrix from each
-#infected_series <- lapply(data, function(x) { x$infected[[length(x$infected)]] })
+infected_series <- lapply(data, function(x) { x$infected[[length(x$infected)]] })
 
-#infected_series_TF <- lapply(infected_series, function(x) { x > 0 })
+infected_series_TF <- lapply(infected_series, function(x) { x > 0 })
 
 # TFs are added as 01s
-#probability <- Reduce(`+`, infected_series_TF) / runs
+probability <- Reduce(`+`, infected_series_TF) / runs
 
-#dir.create("/outputs/data/output_slf", recursive = TRUE)
-#writeRaster(raster(probability), "/outputs/data/output_slf/probability.tif", "GTiff", options=c('TFW=YES'), overwrite=TRUE)
+dir.create("/outputs/data/output_slf", recursive = TRUE)
+writeRaster(raster(probability), "/outputs/data/output_slf/probability.tif", "GTiff", options=c('TFW=YES'), overwrite=TRUE)

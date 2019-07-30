@@ -49,7 +49,7 @@ r.pops.spread \
     kappa=0 \
     random_seed=42 \
     reproductive_rate=2.1 \
-    temperature_file="data/t100x100/temperature.txt" \
+    temperature_file="data/slf/temperature.txt" \
     lethal_temperature=-13 \
     lethal_month=1 \
     output_series=output \

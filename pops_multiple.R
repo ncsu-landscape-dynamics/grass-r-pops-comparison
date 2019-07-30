@@ -32,6 +32,8 @@
 #' @param mortality_on  boolean to turn host mortality on and off
 #' @param treatments_file path to raster file with treatment data by years
 #' @param treatment_years years in which to apply treatment
+#' @param treatment_month the time during the year that treatment is applied. Currently monthly option so can be 1 -12. Default is 12.
+#' @param treatment_method what method to use when applying treatment one of ("ratio" or "all infected"). ratio removes a portion of all infected and susceptibles, all infected removes all infected a portion of susceptibles.
 #' @param mortality_rate rate at which mortality occurs
 #' @param mortality_time_lag time lag from infection until mortality can occur in years
 #' @param runs number of stochastic runs
@@ -74,9 +76,13 @@ pops_multiple <- function(infected_file, host_file, total_plants_file, reproduct
                  short_distance_scale = 59, long_distance_scale = 0.0,
                  lethal_temperature = -12.87, lethal_temperature_month = 1,
                  mortality_rate = 0, mortality_time_lag = 0,
+                 treatment_method = "ratio", treatment_month = 12,
                  wind_dir = "NONE", kappa = 0, random_seed = NULL,
                  runs = 1){ 
   
+  if (!treatment_method %in% c("ratio", "all infected")) {
+    return("treatment method is not one of the valid treatment options")
+  }
 
   if (!file.exists(infected_file)) {
     return("Infected file does not exist") 
@@ -295,10 +301,12 @@ pops_multiple <- function(infected_file, host_file, total_plants_file, reproduct
       }
     }
     treatment_years = treatment_years
+    treatment_method = treatment_method
   } else {
     treatment_map <- host
     raster::values(treatment_map) <- 0
     treatment_maps = list(raster::as.matrix(treatment_map))
+    treatment_method = treatment_method
   }
   
   ew_res <- raster::xres(susceptible)
@@ -335,6 +343,7 @@ pops_multiple <- function(infected_file, host_file, total_plants_file, reproduct
                start_time = start_time, end_time = end_time,
                dispersal_kern = dispersal_kern, percent_short_distance_dispersal = percent_short_distance_dispersal,
                long_distance_scale = long_distance_scale,
+               treatment_month = treatment_month, treatment_method = treatment_method,
                wind_dir = wind_dir, kappa = kappa)
        series[[i]] <- data
   }
